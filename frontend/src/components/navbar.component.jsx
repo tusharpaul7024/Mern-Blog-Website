@@ -1,13 +1,35 @@
 import { useState } from 'react'
 import logo from '../images/logo.png'
 import {Link} from 'react-router-dom' 
+import { useDispatch, useSelector } from 'react-redux'
+import { setMode } from '../redux/features/slices/theme.slice.js'
+
 
 function Navbar () {
 
     const [searchBoxVisiblity, setSearchBoxVisiblity] = useState(false)
+    const dispatch = useDispatch()
+    const currentTheme = useSelector(state => state.theme.mode)
+    
+    
+    function lightDarkModeIcons(){
+
+        if(currentTheme === "light"){
+            
+           return <i className='fi fi-sr-brightness text-2xl leading-none'></i>
+        }
+        else{
+            return <i className='fi fi-sr-moon-stars text-xl'></i>
+        }
+    }
+
+
+
+
 
   return (
-    <nav className='navbar'>
+    <nav  className='navbar'>
+        
        
         <Link to='/' className='flex-none w-10'>
             <img src={logo} className='w-full' alt='blog logo' />
@@ -20,16 +42,28 @@ function Navbar () {
             <i className='fi fi-rr-search absolute right-[10%] md:pointer-event-none md:left-5 top-1/2 -translate-y-1/2 text-xl text-dark-grey' ></i>
         </div>
 
-        <div className='flex items-center gap-3 md:gap-6 ml-auto'>
-            <button className='md:hidden bg-grey w-12 h-12 rounded-full flex items-center justify-center'
-                    onClick={() => setSearchBoxVisiblity(prev => !prev)}>
-                <i className="fi fi-rr-search text-xl"></i>
-            </button>
+        <div className='flex items-center gap-3 md:gap-5 ml-auto'>
 
-            <Link to='/editor' className='hidden md:flex gap-2 link rounded-full'>
-                <i className="fi fi-rr-file-edit"></i>
-                <p>Write</p>
-            </Link>
+            <div className='flex gap-3 w-full'>
+                <button className='md:hidden bg-grey w-12 h-12 rounded-full flex items-center justify-center'
+                        onClick={() => setSearchBoxVisiblity(prev => !prev)}>
+                    <i className="fi fi-rr-search text-xl"></i>
+                </button>
+            
+          
+                <Link to='/editor' className='hidden md:flex gap-2 link rounded-full '>
+                    <i className="fi fi-rr-file-edit"></i>
+                    <p>Write</p>
+                </Link>
+            
+                <button className=' bg-grey w-12 h-12 rounded-full flex items-center justify-center'
+                    onClick={() => dispatch(setMode(currentTheme === "light" ? "dark" : "light"))}>
+                {lightDarkModeIcons()} 
+                </button>
+                
+            </div>
+           
+
             <Link className='btn-dark py-2' to='/signin'>
                 Sign In            
             </Link>
@@ -38,8 +72,6 @@ function Navbar () {
             </Link>
         </div>
 
-        
-    
     </nav>
   )
 }
@@ -47,4 +79,3 @@ function Navbar () {
 export default Navbar 
 
 
-//7024997831
