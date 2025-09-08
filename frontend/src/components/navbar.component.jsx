@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import logo from '../images/logo.png'
-import {Link} from 'react-router-dom' 
+import {Link, Outlet} from 'react-router-dom' 
 import { useDispatch, useSelector } from 'react-redux'
 import { setMode } from '../redux/features/slices/theme.slice.js'
 
@@ -28,6 +28,7 @@ function Navbar () {
 
 
   return (
+    <>
     <nav  className='navbar'>
         
        
@@ -73,7 +74,11 @@ function Navbar () {
         </div>
 
     </nav>
-  )
+    <Outlet/>
+    </>
+
+)
+
 }
 
 export default Navbar 
