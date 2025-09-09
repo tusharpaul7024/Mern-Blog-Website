@@ -74,7 +74,7 @@ function Navbar () {
         </div>
 
     </nav>
-    <Outlet/>
+    <Outlet/> 
     </>
 
 )
